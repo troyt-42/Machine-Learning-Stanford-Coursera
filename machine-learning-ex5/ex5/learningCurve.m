@@ -53,13 +53,29 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 for i = 1:m
-  tempX = X(1:i, :);
-  tempy = y(1:i);
-  [theta] = trainLinearReg(tempX, tempy, lambda);
-  [J_train, grad] = linearRegCostFunction(tempX, tempy, theta, 0);
-  [J_val, grad] = linearRegCostFunction(Xval, yval, theta, 0);
-  error_train(i) = J_train;
-  error_val(i) = J_val;
+  accumlated_train_error = 0;
+  accumlated_val_error = 0;
+  for p = 1:50
+    random_train_index = unifrnd(1, m, 1, i);
+    random_val_index = unifrnd(1, length(yval), 1, i);
+    tempX = X(1:i, :);
+    tempy = y(1:i);
+    tempXval = Xval(1:i, :);
+    tempyval = yval(1:i, :);
+    for c = 1:length(random_train_index)
+        tempX(c, :) = X(ceil(random_train_index(c)), :);
+        tempy(c, :) = y(ceil(random_train_index(c)));
+        tempXval(c, :) = Xval(ceil(random_val_index(c)), :);
+        tempyval(c, :) = yval(ceil(random_val_index(c)));
+    endfor
+    [theta] = trainLinearReg(tempX, tempy, lambda);
+    [J_train, grad] = linearRegCostFunction(tempX, tempy, theta, 0);
+    [J_val, grad] = linearRegCostFunction(tempXval, tempyval, theta, 0);
+    accumlated_train_error = accumlated_train_error + J_train;
+    accumlated_val_error = accumlated_val_error + J_val;
+  endfor
+  error_train(i) = accumlated_train_error / 50;
+  error_val(i) = accumlated_val_error / 50;
 endfor
 
 

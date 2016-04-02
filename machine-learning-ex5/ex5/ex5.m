@@ -81,8 +81,8 @@ pause;
 %                 fit.
 %
 
-%  Train linear regression with lambda = 3
-lambda = 3;
+%  Train linear regression with lambda = 0.01
+lambda = 0.01;
 [theta] = trainLinearReg([ones(m, 1) X], y, lambda);
 
 %  Plot fit over the data
@@ -104,7 +104,7 @@ pause;
 %                 see a graph with "high bias" -- slide 8 in ML-advice.pdf
 %
 
-lambda = 3;
+lambda = 0.01;
 [error_train, error_val] = ...
     learningCurve([ones(m, 1) X], y, ...
                   [ones(size(Xval, 1), 1) Xval], yval, ...
@@ -160,11 +160,11 @@ pause;
 %% =========== Part 7: Learning Curve for Polynomial Regression =============
 %  Now, you will get to experiment with polynomial regression with multiple
 %  values of lambda. The code below runs polynomial regression with
-%  lambda = 3. You should try running the code with different values of
+%  lambda = 0.01. You should try running the code with different values of
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 3;
+lambda = 0.01;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
