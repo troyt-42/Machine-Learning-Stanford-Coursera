@@ -44,7 +44,7 @@ foldersToCheck.forEach(function(folder){
                     vocabularyList.push(key);
                   }
                 }
-                fs.writeFile("./vocabulary_list.txt", JSON.stringify(vocabularyList.toString()), function(err, result){
+                fs.writeFile("./vocabulary_list.txt", vocabularyList.join("\n"), function(err, result){
                   if(!err){
                     console.log("Vocabulary List has been created. \n Total Length: " + vocabularyList.length);
                     process.exit();

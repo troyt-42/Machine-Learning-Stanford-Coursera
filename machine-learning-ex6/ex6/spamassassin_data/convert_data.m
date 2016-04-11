@@ -4,8 +4,11 @@ fidX = fopen('./X.txt');
 fidy = fopen('./y.txt');
 
 if fidX & fidy
-    X = fscanf(fidX, '%c\n', [3896, 5816]);
+    X = fscanf(fidX, '%c');
     y = fscanf(fidy, '%c\n', [3896, 1]);
+    size(X);
+    X = reshape(str2num(X), 3896, 5818);
+    y = str2num(y);
     save('spamassasin_data.mat', 'X', 'y');
     fclose(fidX);
     fclose(fidy);

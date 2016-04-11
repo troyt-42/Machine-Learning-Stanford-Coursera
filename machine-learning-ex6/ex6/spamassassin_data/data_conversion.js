@@ -4,13 +4,13 @@ var foldersToCheck = ["./spam/", "./ham/"];
 
 var vocabList = fs.readFileSync("./vocabulary_list.txt");
 vocabList = vocabList.toString("utf8");
-vocabList = vocabList.split(",");
+vocabList = vocabList.split("\n");
 var X = [];
 var y = [];
 
 function processEmail(data){
   // process.stdout.write("Start Process:");
-  wordIndices = new Array(vocabList.length).join(0).split('').map(parseFloat);
+  wordIndices = new Array(vocabList.length+1).join(0).split('').map(parseFloat);
   data = data.toLowerCase();
   var headerEnd = data.indexOf("\n\n");
   data = data.slice(headerEnd);
@@ -58,10 +58,10 @@ foldersToCheck.forEach(function(folder){
                 Xtext = "";
                 ytext = "";
                 for (var i = 0; i < X.length; i++) {
-                  Xtext += JSON.stringify(X[i]).replace(/,|\]|\[/g, "") + "\n";
+                  Xtext += X[i].join(" ") + " ";
                 }
-                for (var i = 0; i < y.length; i++) {
-                  ytext += JSON.stringify(y[i]).replace(/,|\]|\[/g, "") + "\n";
+                for (var p = 0; p < y.length; p++) {
+                  ytext += JSON.stringify(y[p]).replace(/,|\]|\[/g, "") + "\n";
                 }
                 fs.writeFile("./X.txt", Xtext, function(err, result){
                   if(!err){
