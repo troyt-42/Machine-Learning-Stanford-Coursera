@@ -9,7 +9,7 @@ foldersToCheck.forEach(function(folder){
   fs.readdir(folder, function(err, files){
     if (!err){
       files.forEach(function(file,index){
-        if (/^[0-9]+$/.test(file)){
+        if (!/^(cmds)(\s*[0-9])*$/.test(file)){
           pendingFiles++;
           console.log("Adding File",pendingFiles);
           fs.readFile(folder+file, function(err,data){

@@ -5,7 +5,7 @@ function x = emailFeaturesT(word_indices)
 %   produces a feature vector from the word indices.
 
 % Total number of words in the dictionary
-n = 5818;
+n = 8016;
 
 % You need to return the following variables correctly.
 x = zeros(n, 1);

@@ -9,7 +9,7 @@ function vocabListT = getVocabListT()
 fid = fopen('./spamassassin_data/vocabulary_list.txt');
 
 % Store all dictionary words in cell array vocab{}
-n = 5818;  % Total number of words in the dictionary
+n = 8016;  % Total number of words in the dictionary
 
 % For ease of implementation, we use a struct to map the strings => integers
 % In practice, you'll want to use some form of hashmap

@@ -1,6 +1,3 @@
-How are things?
-I'm a unmarried sweet lady.
-Searching close mate.
-Im from Russian Federation. And what about you? From what country do u come?
-Answer me and I'm send my foto
-Wait for U reply.
+version https://git-lfs.github.com/spec/v1
+oid sha256:9fc97c5a706b86e47cf547c201e80d999a4698470b33238d89ce17d5b5d7a085
+size 579

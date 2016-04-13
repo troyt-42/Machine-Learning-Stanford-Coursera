@@ -39,13 +39,13 @@ foldersToCheck.forEach(function(folder){
   fs.readdir(folder, function(err, files){
     if (!err){
       files.forEach(function(file,index){
-        if (/^[0-9]+$/.test(file)){
+        if (!/^(cmds)(\s*[0-9])*$/.test(file)){
           pendingFiles++;
           console.log("Adding File",pendingFiles);
           fs.readFile(folder+file, function(err,data){
             if(!err){
               data = data.toString("utf8");
-              features = processEmail(data);
+              var features = processEmail(data);
               pendingFiles -= 1;
               X.push(features);
               if(folder === "./spam/"){
@@ -55,23 +55,24 @@ foldersToCheck.forEach(function(folder){
               }
               if (pendingFiles <= 0){
                 console.log("Finish");
-                Xtext = "";
-                ytext = "";
+                var dataToWrite = "# Created by Nodejs, "+ Date().toString()+" <taozytroy@gmail.com>\n# name: X\n# type: matrix\n# rows: "+X.length+"\n# columns: "+X[0].length+"\n";
+                var Xtext = "";
                 for (var i = 0; i < X.length; i++) {
-                  Xtext += X[i].join(" ") + " ";
+                  Xtext += " " + X[i].join(" ") + "\n";
                 }
-                for (var p = 0; p < y.length; p++) {
-                  ytext += JSON.stringify(y[p]).replace(/,|\]|\[/g, "") + "\n";
+                dataToWrite += Xtext + "\n\n\n";
+
+                dataToWrite += "# name: y\n"+"# type: matrix\n"+"# rows: "+y.length+"\n# columns: 1\n";
+                var ytext = "";
+                for (var p = y.length - 1; p >= 0; p--) {
+                  ytext += " " + y.join(" ") + "\n";
                 }
-                fs.writeFile("./X.txt", Xtext, function(err, result){
+                dataToWrite += ytext + "\n\n\n";
+                fs.writeFile("./spamassasin_data.mat", dataToWrite, function(err, result){
                   if(!err){
                     console.log("X has been created. \n Total Length: " + X.length + " x " + X[0].length);
-                    fs.writeFile("./y.txt", ytext, function(err, result){
-                      if(!err){
-                        console.log("y has been created. \n Size: " + y.length + " x 1");
-                        process.exit();
-                      }
-                    });
+                    console.log("y has been created. \n Size: " + y.length + " x 1");
+                    process.exit();
                   }
                 });
 
